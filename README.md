@@ -105,15 +105,3 @@ Les fichiers rendus peuvent aussi comprendre:
   - Des documents de recherche créés pour le projet et fournissant plus de détails pour l'enseignant.
 Pour tout autre type de fichier, veuillez demander à l'enseignant si son inclusion est appropriée.
 La soutenance dure 10 minutes durant lesquelles les membres présentent leur travail. Un échange de questions peut se faire entre le professeur et les membres du groupe.
-
-Les groupes sont les suivants:
-- Hywel, Guillaume, ESTEBAN
-- Adam, Bastien V, Mounir
-- Julien, Zineb, ALEXANDRE
-- Lucas, Mathéo, Raphael
-- Jordan, Jean, Fabien
-- THEO , Sylvian , Bastien B, Florian
-
-
-
-
