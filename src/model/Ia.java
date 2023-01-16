@@ -41,19 +41,31 @@ public class Ia {
         this.difficulty = difficulty;
     }
 
-    public String[][] getMatrice() {
+    public MatrixGen getMatrice() {
         return matrice;
     }
 
-    public void setMatrice(String[][] matrice) {
+    public void setMatrice(MatrixGen matrice) {
         this.matrice = matrice;
     }
 
     public int randomColumn() {
-
         int column = (int) Math.floor(Math.random() * (6 - 0 + 1) + 0);
-
         return column;
+    }
+
+    public void iaColumn() {
+        int column;
+
+        switch (getDifficulty()) {
+            case "1":
+                column = randomColumn();
+                break;
+
+            default:
+                break;
+        }
+
     }
 
 }
