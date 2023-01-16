@@ -1,5 +1,4 @@
 public class MatrixGen {
-
 	public static void main(String[] args) {
 		int row = 6;
 		int column = 7;
@@ -15,11 +14,10 @@ public class MatrixGen {
 	}
 
 	private static void print2dArray(String[][] matrix) {
-		
 		for (int r = 0; r < matrix.length; r++) {
 			if (r == 0) {
 				//Print top
-				System.out.println("   1   2   3   4   5   6   7 \n");
+				System.out.println("\n   1   2   3   4   5   6   7 ");
 			} 
 			for (int c = 0; c < matrix[0].length; c++) {
 				if (c == 0) {
@@ -34,7 +32,6 @@ public class MatrixGen {
 			} else {
 				//Print bottom
 				System.out.println(" \\===========================/");
-				System.out.println("Joueur Bob, choisisser votre colonne?\n");
 			}
 		}
 	}
