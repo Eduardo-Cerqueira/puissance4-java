@@ -1,24 +1,16 @@
-import java.util.Scanner;
-
 public class MatrixGen {
 
 	public static void main(String[] args) {
 		int row = 6;
 		int column = 7;
-		Scanner sc = new Scanner(System.in);
 
 		String[][] matrix = new String[row][column];
 		for (int r = 0; r < row; r++) {
 			for (int c = 0; c < column; c++) {
-				matrix[r][c] =  " ";
+				//Contenu par défault de la matrice
+				matrix[r][c] = " ";
 			}
 		}
-
-		// close the scanner
-		sc.close();
-
-		// print both matrices
-		System.out.println("\nMatrix:\n");
 		print2dArray(matrix);
 	}
 
@@ -26,6 +18,7 @@ public class MatrixGen {
 		
 		for (int r = 0; r < matrix.length; r++) {
 			if (r == 0) {
+				//Print top
 				System.out.println("   1   2   3   4   5   6   7 \n");
 			} 
 			for (int c = 0; c < matrix[0].length; c++) {
@@ -39,6 +32,7 @@ public class MatrixGen {
 			if (r < matrix.length-1) {
 				System.out.println(" |---+---+---+---+---+---+---|");
 			} else {
+				//Print bottom
 				System.out.println(" \\===========================/");
 				System.out.println("Joueur Bob, choisisser votre colonne?\n");
 			}
