@@ -54,13 +54,47 @@ public class Menu {
 
     private String Gamemode;
 
-    public String getGamemode() {
+    public String getGamemode() throws ParseException {
+            switch (Gamemode) {
+                case "1":
+                    CreateMenu.LaunchSingleplayer();
+                    break;
+                case "2":
+                    CreateMenu.LaunchMultiplayer();
+                    break;
+                case "3":
+                    break;
+                case "a":
+                    break;
+                default:
+                    System.out.println("Are you sure your answer is correct ?");
+                    break;
+            }
         return Gamemode;
     }
 
-    public void setGamemode(String Gamemode) {
+    public void setGamemode(String Gamemode) throws ParseException {
+        switch (Gamemode) {
+            case "1":
+                Gamemode = "Singleplayer";
+                CreateMenu.LaunchSingleplayer();
+                break;
+            case "2":
+                Gamemode = "Multiplayer";
+                CreateMenu.LaunchMultiplayer();
+                break;
+            case "3":
+                Gamemode = "TOP10";
+                break;
+            case "a":
+                return;
+            default:
+                System.out.println("Are you sure your answer is correct ?");
+                break;
+        }
         this.Gamemode = Gamemode;
     }
+    
 
     public void save() throws IOException {
         try {
