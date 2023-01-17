@@ -171,39 +171,4 @@ public class Ia {
         ;
     }
 
-    public static void main(String[] args) {
-        String[][] matrix = createMatrice();
-
-        matrix[5][3] = "X";
-        matrix[4][3] = "X";
-        matrix[3][3] = "X";
-
-        /*
-         * matrix[0][0] = "X";
-         * matrix[0][1] = "O";
-         * matrix[0][2] = "X";
-         * matrix[0][3] = "X";
-         */
-
-        /*
-         * matrix[0][4] = "X";
-         * matrix[1][3] = "X";
-         * matrix[2][2] = "X";
-         * matrix[3][1] = "X";
-         */
-
-        /*
-         * matrix[0][2] = "O";
-         * matrix[1][3] = "X";
-         * matrix[2][4] = "O";
-         * matrix[3][5] = "X";
-         */
-
-        /*
-         * verifVerticalAlignement(matrix, 3, 3, "X");
-         * verifHorizontalAlignement(matrix, 0, 1, "X");
-         */
-        verifVerticalAlignement(matrix, 3, 3, "X");
-    }
-
 }
