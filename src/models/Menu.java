@@ -1,20 +1,30 @@
-package helpers;
+package models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class Menu {
-    public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        
-        showMenu();
+
+    private static Scanner scan = new Scanner(System.in);
+    private static String window = "Home";
+
+    public static void Fullmenu() {
         
         while (true) {
+            if (window == "Home") {
+                clearTerminal();
+                showMenu();
+            } else if (window == "AI"){
+                clearTerminal();
+                showSubMainAI();
+            }
+
             String choise = scan.nextLine();
             switch (choise) {
                 case "1":
                     clearTerminal();
+                    window = "AI";
                     break;
                 case "2":
                     clearTerminal();
@@ -25,7 +35,7 @@ public class Menu {
                 case "a":
                     scan.close();
                     clearTerminal();
-                    
+
                     return;
                 default:
                     System.out.println("Are you sure your answer is correct ?");
@@ -35,7 +45,7 @@ public class Menu {
         }
     }
 
-    public static void showMenu() {
+    private static void showMenu() {
         ArrayList<String> menus = new ArrayList<>();
         menus.add("[--------------- MENU ---------------]");
         menus.add("|                                    |");
@@ -50,7 +60,7 @@ public class Menu {
         }
     }
     
-    public static void showAIdifficulty() {
+    private static void showAIdifficulty() {
         ArrayList<String> menus = new ArrayList<>();
         menus.add("[--------------- MENU ---------------]");
         menus.add("|                                    |");
@@ -65,7 +75,43 @@ public class Menu {
             System.out.println(s);
         }
     }
-    public static void clearTerminal() {
+
+    private static void showSubMainAI() {
+        while (window == "AI") {
+            clearTerminal();
+            showAIdifficulty();
+
+            String choise = scan.nextLine();
+            switch (choise) {
+                case "1":
+                    clearTerminal();
+                    break;
+                case "2":
+                    clearTerminal();
+                    break;
+                case "3":
+                    clearTerminal();
+                    break;
+                case "4":
+                    clearTerminal();
+                    break;
+                case "a":
+                    clearTerminal();
+                    window = "Home";
+                    break;
+                default:
+                    System.out.println("Are you sure your answer is correct ?");
+                    break;
+            }
+            if (window == "Home") {
+                showMenu();
+            } else {
+                showAIdifficulty();
+            }
+        }
+    }
+
+    private static void clearTerminal() {
         //Terminal clear command
         final String ANSI_CLS = "\u001b[2J";
         //Terminal delete void space return home position command terminal
