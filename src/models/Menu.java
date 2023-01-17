@@ -8,6 +8,8 @@ public class Menu {
 
     private static Scanner scan = new Scanner(System.in);
     private static String window = "Home";
+    public static String playerName;
+    public static String AI;
 
     public static void Fullmenu() {
         
@@ -18,6 +20,15 @@ public class Menu {
             } else if (window == "AI"){
                 clearTerminal();
                 showSubMainAI();
+            } else if (window == "Solo") {
+                clearTerminal();
+                showSubMainSolo();
+            } else if (window == "Multiplayer") {
+                clearTerminal();
+            } else if (window == "Top10") {
+                clearTerminal();
+            } else {
+                return;
             }
 
             String choise = scan.nextLine();
@@ -65,7 +76,7 @@ public class Menu {
         menus.add("[--------------- MENU ---------------]");
         menus.add("|                                    |");
         menus.add("|             1: Easy                |");
-        menus.add("|             2: Medium              |");
+        menus.add("|             2: Standard            |");
         menus.add("|             3: Hard                |");
         menus.add("|             4: Hell                |");
         menus.add("|                                    |");
@@ -84,16 +95,24 @@ public class Menu {
             String choise = scan.nextLine();
             switch (choise) {
                 case "1":
+                    AI = "Easy";
                     clearTerminal();
+                    window = "Solo";
                     break;
                 case "2":
+                    AI = "Standard";
                     clearTerminal();
+                    window = "Solo";
                     break;
                 case "3":
+                    AI = "Hard";
                     clearTerminal();
+                    window = "Solo";
                     break;
                 case "4":
+                    AI = "Hell";
                     clearTerminal();
+                    window = "Solo";
                     break;
                 case "a":
                     clearTerminal();
@@ -105,11 +124,49 @@ public class Menu {
             }
             if (window == "Home") {
                 showMenu();
+            } else if (window == "Solo") {
+                showSubMainSolo();
             } else {
                 showAIdifficulty();
             }
         }
     }
+
+    private static void SubMainSolo() {
+        ArrayList<String> menus = new ArrayList<>();
+        menus.add("[--------------- MENU ---------------]");
+        menus.add("|                                    |");
+        menus.add("|          Write your name :         |");
+        menus.add("|                                    |");
+        menus.add("[------------------------------------]");
+        for (String s : menus) {
+            System.out.println(s);
+        }
+    }
+
+    private static void showSubMainSolo() {
+        boolean inputName = true;
+        while (window == "Solo") {
+            clearTerminal();
+            SubMainSolo();
+
+            while(inputName == true) {
+                playerName = scan.nextLine();
+                int count = 0;
+                for(int i = 0; i < playerName.length(); i++) {    
+                    if(playerName.charAt(i) != ' ')    
+                    count++;    
+                } 
+                if (count == 0) {
+                    System.out.println("Give a correct player name !");
+                } else if (count >= 1 ) {
+                    inputName = false;
+                    window = "Game";
+                }
+            }
+        }
+    }
+    private static String OS = System.getProperty("os.name");
 
     private static void clearTerminal() {
         //Terminal clear command
@@ -117,10 +174,13 @@ public class Menu {
         //Terminal delete void space return home position command terminal
         final String ANSI_HOME = "\u001b[H";
         //Execute commands
-        //Linux
-        System.out.print(ANSI_CLS + ANSI_HOME);
-        //Windows
-        System.out.print("\033[2J\033[1;1H");
+        if (OS.startsWith("Linux")) {
+            //Linux
+            System.out.print(ANSI_CLS + ANSI_HOME);
+        } else if (OS.startsWith("Windows")) {
+            //Windows
+            System.out.print("\033[2J\033[1;1H");
+    }
         //Avoir losing data :
         System.out.flush();
     }
