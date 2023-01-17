@@ -1,4 +1,4 @@
-package helpers;
+package models;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -7,43 +7,24 @@ import java.util.Scanner;
 public class Menu {
 
     private static Scanner scan = new Scanner(System.in);
-    private static boolean isMainMenu = true;
+    private static String window = "Home";
 
-    public static void main(String[] args) {
+    public static void Fullmenu() {
         
         while (true) {
-            if (isMainMenu == true) {
+            if (window == "Home") {
                 clearTerminal();
                 showMenu();
-            } else {
+            } else if (window == "AI"){
                 clearTerminal();
                 showSubMainAI();
             }
-            showMainMenu();
-        }
-    }
 
-    public static void showMenu() {
-        ArrayList<String> menus = new ArrayList<>();
-        menus.add("[--------------- MENU ---------------]");
-        menus.add("|                                    |");
-        menus.add("|            1: 1 Player             |");
-        menus.add("|            2: 2 Players            |");
-        menus.add("|            3: TOP 10               |");
-        menus.add("|                                    |");
-        menus.add("|          Press a to leave          |");
-        menus.add("[------------------------------------]");
-        for (String s : menus) {
-            System.out.println(s);
-        }
-    }
-
-    public static void showMainMenu() {
-        String choise = scan.nextLine();
+            String choise = scan.nextLine();
             switch (choise) {
                 case "1":
                     clearTerminal();
-                    isMainMenu = false;
+                    window = "AI";
                     break;
                 case "2":
                     clearTerminal();
@@ -61,9 +42,25 @@ public class Menu {
                     break;
             }
             showMenu();
+        }
+    }
+
+    private static void showMenu() {
+        ArrayList<String> menus = new ArrayList<>();
+        menus.add("[--------------- MENU ---------------]");
+        menus.add("|                                    |");
+        menus.add("|            1: 1 Player             |");
+        menus.add("|            2: 2 Players            |");
+        menus.add("|            3: TOP 10               |");
+        menus.add("|                                    |");
+        menus.add("|          Press a to leave          |");
+        menus.add("[------------------------------------]");
+        for (String s : menus) {
+            System.out.println(s);
+        }
     }
     
-    public static void showAIdifficulty() {
+    private static void showAIdifficulty() {
         ArrayList<String> menus = new ArrayList<>();
         menus.add("[--------------- MENU ---------------]");
         menus.add("|                                    |");
@@ -79,8 +76,8 @@ public class Menu {
         }
     }
 
-    public static void showSubMainAI() {
-        while (isMainMenu == false) {
+    private static void showSubMainAI() {
+        while (window == "AI") {
             clearTerminal();
             showAIdifficulty();
 
@@ -100,13 +97,13 @@ public class Menu {
                     break;
                 case "a":
                     clearTerminal();
-                    isMainMenu = true;
+                    window = "Home";
                     break;
                 default:
                     System.out.println("Are you sure your answer is correct ?");
                     break;
             }
-            if (isMainMenu == true) {
+            if (window == "Home") {
                 showMenu();
             } else {
                 showAIdifficulty();
@@ -114,7 +111,7 @@ public class Menu {
         }
     }
 
-    public static void clearTerminal() {
+    private static void clearTerminal() {
         //Terminal clear command
         final String ANSI_CLS = "\u001b[2J";
         //Terminal delete void space return home position command terminal
