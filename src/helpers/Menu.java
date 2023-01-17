@@ -5,33 +5,21 @@ import java.util.Scanner;
 
 
 public class Menu {
+
+    private static Scanner scan = new Scanner(System.in);
+    private static boolean isMainMenu = true;
+
     public static void main(String[] args) {
-        Scanner scan = new Scanner(System.in);
-        
-        showMenu();
         
         while (true) {
-            String choise = scan.nextLine();
-            switch (choise) {
-                case "1":
-                    clearTerminal();
-                    break;
-                case "2":
-                    clearTerminal();
-                    break;
-                case "3":
-                    clearTerminal();
-                    break;
-                case "a":
-                    scan.close();
-                    clearTerminal();
-                    
-                    return;
-                default:
-                    System.out.println("Are you sure your answer is correct ?");
-                    break;
+            if (isMainMenu == true) {
+                clearTerminal();
+                showMenu();
+            } else {
+                clearTerminal();
+                showSubMainAI();
             }
-            showMenu();
+            showMainMenu();
         }
     }
 
@@ -49,6 +37,31 @@ public class Menu {
             System.out.println(s);
         }
     }
+
+    public static void showMainMenu() {
+        String choise = scan.nextLine();
+            switch (choise) {
+                case "1":
+                    clearTerminal();
+                    isMainMenu = false;
+                    break;
+                case "2":
+                    clearTerminal();
+                    break;
+                case "3":
+                    clearTerminal();
+                    break;
+                case "a":
+                    scan.close();
+                    clearTerminal();
+
+                    return;
+                default:
+                    System.out.println("Are you sure your answer is correct ?");
+                    break;
+            }
+            showMenu();
+    }
     
     public static void showAIdifficulty() {
         ArrayList<String> menus = new ArrayList<>();
@@ -65,6 +78,42 @@ public class Menu {
             System.out.println(s);
         }
     }
+
+    public static void showSubMainAI() {
+        while (isMainMenu == false) {
+            clearTerminal();
+            showAIdifficulty();
+
+            String choise = scan.nextLine();
+            switch (choise) {
+                case "1":
+                    clearTerminal();
+                    break;
+                case "2":
+                    clearTerminal();
+                    break;
+                case "3":
+                    clearTerminal();
+                    break;
+                case "4":
+                    clearTerminal();
+                    break;
+                case "a":
+                    clearTerminal();
+                    isMainMenu = true;
+                    break;
+                default:
+                    System.out.println("Are you sure your answer is correct ?");
+                    break;
+            }
+            if (isMainMenu == true) {
+                showMenu();
+            } else {
+                showAIdifficulty();
+            }
+        }
+    }
+
     public static void clearTerminal() {
         //Terminal clear command
         final String ANSI_CLS = "\u001b[2J";
