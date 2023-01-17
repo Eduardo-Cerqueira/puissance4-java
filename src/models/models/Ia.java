@@ -1,10 +1,5 @@
 package models;
 
-import java.io.Console;
-import java.lang.reflect.Constructor;
-
-import javax.swing.GroupLayout.Alignment;
-
 public class Ia {
 
     private String name;
