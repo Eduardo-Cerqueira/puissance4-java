@@ -5,14 +5,14 @@ public class Ia {
     private String name;
     private String symbol;
     private String difficulty;
-    private MatrixGen matrice;
+    private String[][] matrice;
 
-    public Ia(String symbol, String difficulty, MatrixGen matrix) {
+    public Ia(String symbol, String difficulty, String[][] matrix) {
 
-        name = "Michel";
-        symbol = symbol;
-        difficulty = difficulty;
-        matrix = matrix;
+        this.name = "Michel";
+        this.symbol = symbol;
+        this.difficulty = difficulty;
+        this.matrice = matrix;
     }
 
     public String getName() {
@@ -39,31 +39,16 @@ public class Ia {
         this.difficulty = difficulty;
     }
 
-    public MatrixGen getMatrice() {
+    public String[][] getMatrice() {
         return matrice;
     }
 
-    public void setMatrice(MatrixGen matrice) {
+    public void setMatrice(String[][] matrice) {
         this.matrice = matrice;
     }
 
-    public static String[][] createMatrice() {
-        int row = 6;
-        int column = 7;
-
-        String[][] matrix = new String[row][column];
-        for (int r = 0; r < row; r++) {
-            for (int c = 0; c < column; c++) {
-                // Contenu par défault de la matrice
-                matrix[r][c] = " ";
-            }
-        }
-
-        return matrix;
-    }
-
     public int randomColumn() {
-        int column = (int) Math.floor(Math.random() * (6 - 0 + 1) + 0);
+        int column = (int) (Math.random() * 7 + 1);
         return column;
     }
 
@@ -72,11 +57,10 @@ public class Ia {
         // Haut en bas
         int alignement = 0;
 
-        while (lastX < 6 && matrix[lastX][lastY] == "X") {
+        while (lastX < 6 && matrix[lastX][lastY] == lastSymbol) {
             alignement++;
             lastX++;
         }
-        System.out.println(alignement);
         return alignement;
     }
 
@@ -150,20 +134,36 @@ public class Ia {
         return alignement - 1;
     }
 
-    public void iaColumn() {
+    public int preventPlayerVictory(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int column = 0;
+        System.out.println(verifVerticalAlignement(matrix, lastX, lastY, lastSymbol));
+        if (verifVerticalAlignement(matrix, lastX, lastY, lastSymbol) == 3) {
+            System.out.println("Align");
+            column = lastY + 1;
+        } else {
+            System.out.println("not align");
+            column = this.randomColumn();
+        }
+        return column;
+    }
 
-        switch (getDifficulty()) {
-            case "1":
-                randomColumn();
+    public int iaColumn(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int column = 0;
+        switch (this.getDifficulty()) {
+            case "Easy":
+                column = this.randomColumn();
                 break;
-
-            case "2":
-
+            case "Standard":
+                column = this.preventPlayerVictory(matrix, lastX, lastY, lastSymbol);
+                break;
+            case "Hard":
+                break;
+            case "Hell":
                 break;
             default:
                 break;
         }
-        ;
+        return column;
     }
 
 }
