@@ -1,7 +1,9 @@
-package model;
+package models;
 
 import java.io.Console;
 import java.lang.reflect.Constructor;
+
+import javax.swing.GroupLayout.Alignment;
 
 public class Ia {
 
@@ -71,7 +73,10 @@ public class Ia {
     }
 
     public static int verifVerticalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+
+        // Haut en bas
         int alignement = 0;
+
         while (lastX < 6 && matrix[lastX][lastY] == "X") {
             alignement++;
             lastX++;
@@ -86,11 +91,13 @@ public class Ia {
         int initialX = lastX;
         int initialY = lastY;
 
-        while (lastY < 5 && matrix[lastX][lastY] == lastSymbol) {
+        // Gauche à droite
+        while (lastY < 7 && matrix[lastX][lastY] == lastSymbol) {
             alignement++;
             lastY++;
         }
 
+        // Droite à gauche
         while (initialY >= 0 && matrix[initialX][initialY] == lastSymbol) {
             alignement++;
             initialY--;
@@ -98,6 +105,54 @@ public class Ia {
         alignement--;
         System.out.println(alignement);
         return alignement;
+    }
+
+    public static int verifRightDiagonalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int alignement = 0;
+
+        int initialX = lastX;
+        int initialY = lastY;
+
+        // bas en haut
+        while (lastX >= 0 && lastY < 7 && matrix[lastX][lastY] == lastSymbol) {
+            alignement++;
+            lastX--;
+            lastY++;
+        }
+
+        // haut en bas
+        while (initialX < 7 && initialY >= 0 && matrix[initialX][initialY] == lastSymbol) {
+            alignement++;
+            initialX++;
+            initialY--;
+        }
+
+        System.out.println(alignement - 1);
+        return alignement - 1;
+    }
+
+    public static int verifLeftDiagonalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int alignement = 0;
+
+        int initialX = lastX;
+        int initialY = lastY;
+
+        // bas en haut
+        while (lastX < 7 && lastY < 7 && matrix[lastX][lastY] == lastSymbol) {
+            alignement++;
+            lastX++;
+            lastY++;
+        }
+
+        // haut en bas
+        while (initialY >= 0 && initialX >= 0 && matrix[initialX][initialY] == lastSymbol) {
+            alignement++;
+            initialY--;
+            initialX--;
+        }
+
+        System.out.println(alignement - 1);
+        return alignement - 1;
     }
 
     public void iaColumn() {
@@ -118,16 +173,37 @@ public class Ia {
 
     public static void main(String[] args) {
         String[][] matrix = createMatrice();
+
         matrix[5][3] = "X";
         matrix[4][3] = "X";
         matrix[3][3] = "X";
 
-        matrix[0][0] = "X";
-        matrix[0][1] = "O";
-        matrix[0][2] = "X";
-        matrix[0][3] = "X";
+        /*
+         * matrix[0][0] = "X";
+         * matrix[0][1] = "O";
+         * matrix[0][2] = "X";
+         * matrix[0][3] = "X";
+         */
+
+        /*
+         * matrix[0][4] = "X";
+         * matrix[1][3] = "X";
+         * matrix[2][2] = "X";
+         * matrix[3][1] = "X";
+         */
+
+        /*
+         * matrix[0][2] = "O";
+         * matrix[1][3] = "X";
+         * matrix[2][4] = "O";
+         * matrix[3][5] = "X";
+         */
+
+        /*
+         * verifVerticalAlignement(matrix, 3, 3, "X");
+         * verifHorizontalAlignement(matrix, 0, 1, "X");
+         */
         verifVerticalAlignement(matrix, 3, 3, "X");
-        verifHorizontalAlignement(matrix, 0, 1, "X");
     }
 
 }

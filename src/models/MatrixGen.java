@@ -1,4 +1,4 @@
-package model;
+package models;
 
 public class MatrixGen {
 	public static void main(String[] args) {
