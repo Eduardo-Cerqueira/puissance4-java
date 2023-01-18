@@ -1,7 +1,6 @@
 package models;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.ParseException;
 
 public class Menu {
@@ -54,22 +53,7 @@ public class Menu {
 
     private String Gamemode;
 
-    public String getGamemode() throws ParseException {
-            switch (Gamemode) {
-                case "1":
-                    CreateMenu.LaunchSingleplayer();
-                    break;
-                case "2":
-                    CreateMenu.LaunchMultiplayer();
-                    break;
-                case "3":
-                    break;
-                case "a":
-                    break;
-                default:
-                    System.out.println("Are you sure your answer is correct ?");
-                    break;
-            }
+    public String getGamemode() {
         return Gamemode;
     }
 
@@ -85,6 +69,7 @@ public class Menu {
                 break;
             case "3":
                 Gamemode = "TOP10";
+                CreateMenu.LaunchTOP10();
                 break;
             case "a":
                 return;
@@ -94,15 +79,14 @@ public class Menu {
         }
         this.Gamemode = Gamemode;
     }
-    
 
-    public void save() throws IOException {
-        try {
-            FileWriter file = new FileWriter("score.csv", true);
-            file.write(this.toString()+"\n");
-            file.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private String Score;
+
+    public String getScore() {
+        return Score;
+    }
+
+    public void setScore() {
+        this.Score = Score;
     }
 }
