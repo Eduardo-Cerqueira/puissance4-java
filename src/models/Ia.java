@@ -48,7 +48,7 @@ public class Ia {
      * La fonction verifVerticalAlignement vérifie s'il y a un alignement vertical
      * de jetons d'un joueur donné à partir d'une position donnée sur le plateau de
      * jeu
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -69,7 +69,7 @@ public class Ia {
      * La fonction verifHorizontalAlignement vérifie s'il y a un alignement
      * horizontal de jetons d'un joueur donné à partir d'une position donnée sur le
      * plateau de jeu
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -100,7 +100,7 @@ public class Ia {
      * La fonction verifRightDiagonalAlignement vérifie s'il y a un alignement
      * diagonal (bas-gauche, haut-droite) de jetons d'un joueur donné à partir d'une
      * position donnée sur le plateau de jeu.
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -135,7 +135,7 @@ public class Ia {
      * La fonction verifLeftDiagonalAlignement vérifie s'il y a un alignement
      * diagonal de jetons d'un joueur donné à partir d'une position donnée sur le
      * plateau de jeu (diagonale gauche)
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -171,7 +171,7 @@ public class Ia {
      * La fonction preventPlayerPotentialHorizontalWin vérifie s'il y a une victoire
      * potentielle d'un joueur sur le plateau de jeu (alignement horizontal) et
      * renvoie la colonne à jouer pour empêcher cette victoire.
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -229,7 +229,7 @@ public class Ia {
      * La fonction preventPlayerPotentialDiagonalWin vérifie s'il y a une victoire
      * potentielle d'un joueur sur le plateau de jeu (alignement diagonal) et
      * renvoie la colonne à jouer pour empêcher cette victoire.
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -282,7 +282,7 @@ public class Ia {
      * La fonction preventPlayerVictory vérifie s'il y a une victoire potentielle
      * d'un joueur sur le plateau de jeu et renvoie la colonne à jouer pour empêcher
      * cette victoire.
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
@@ -310,7 +310,7 @@ public class Ia {
     /**
      * La fonction iaColumn sélectionne une colonne à jouer pour l'IA en fonction de
      * la difficulté choisie.
-     * 
+     *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
