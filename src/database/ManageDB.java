@@ -67,12 +67,11 @@ public class ManageDB {
          c = DriverManager.getConnection("jdbc:sqlite:data.db");
          c.setAutoCommit(false);
          //System.out.println("Opened database successfully");
-         String sql = "SELECT * FROM SCORES ORDER BY SCORE DESC LIMIT 10;";
+         String sql = "SELECT ROW_NUMBER() OVER (ORDER BY SCORE DESC) AS ROW, * FROM SCORES ORDER BY SCORE DESC LIMIT 10;";
          stmt = c.createStatement();
          ResultSet rs = stmt.executeQuery(sql);
          while (rs.next()) {
-            System.out.println(rs.getString("USERNAME") +  "\t" + 
-                               rs.getString("SCORE"));
+            System.out.println("TOP "+ rs.getString("ROW") +" -> "+ rs.getString("USERNAME")+ " : " +rs.getString("SCORE"));
         }
          stmt.close();
          c.commit();
