@@ -47,7 +47,7 @@ public class Ia {
         this.matrice = matrice;
     }
 
-    public int randomColumn() {
+    public static int randomColumn() {
         int column = (int) (Math.random() * 7 + 1);
         return column;
     }
@@ -134,15 +134,59 @@ public class Ia {
         return alignement - 1;
     }
 
-    public int preventPlayerVictory(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+    public static int preventPlayerPotentialHorizontalWin(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int initialX = lastX;
+        int initialY = lastY;
+        int victoryY = 0;
+        boolean holeDetected = false;
+
+        while (lastY <= 6 && matrix[lastX][lastY].equals(lastSymbol)) {
+            System.out.println(" Right victoryY == " + victoryY);
+            if (matrix[lastX][lastY].equals(" ") && matrix[lastX][lastY + 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = lastY;
+            } else if (!holeDetected && lastY != 6) {
+                victoryY = lastY + 1;
+            }
+            lastY++;
+        }
+        holeDetected = false;
+
+        while (initialY >= 0 && matrix[initialX][initialY].equals(lastSymbol)) {
+            System.out.println(" Right victoryY == " + victoryY);
+            if (initialY > 1) {
+                if (matrix[initialX][initialY - 1].equals(" ") && matrix[initialX][initialY - 2].equals(lastSymbol)) {
+                    holeDetected = true;
+                    victoryY = initialY - 1;
+                } else if (!holeDetected && lastY != 0) {
+                    victoryY = lastY;
+                }
+            }
+            initialY--;
+        }
+
+        if (victoryY == 7) {
+            victoryY = 3;
+        }
+        return victoryY;
+
+    }
+
+    public static int preventPlayerVictory(String[][] matrix, int lastX, int lastY, String lastSymbol) {
         int column = 0;
+
         System.out.println(verifVerticalAlignement(matrix, lastX, lastY, lastSymbol));
+
         if (verifVerticalAlignement(matrix, lastX, lastY, lastSymbol) == 3) {
+
             System.out.println("Align");
             column = lastY + 1;
+
+        } else if (preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) != -1) {
+            column = preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) + 1;
         } else {
             System.out.println("not align");
-            column = this.randomColumn();
+            column = randomColumn();
         }
         return column;
     }
