@@ -74,7 +74,7 @@ public class CreateMenu {
         for (String s : MenuPlayerNumName("1")) {
             System.out.println(s);
         }
-        m.setNamePlayer(scan.nextLine());
+        p.setPseudo(scan.nextLine());
 
         for (String s : MenuPlayerNumColor("1")) {
             System.out.println(s);
@@ -100,12 +100,11 @@ public class CreateMenu {
     }
 
     public static void LaunchMultiplayer() throws ParseException {
-        Menu m = new Menu();
         Player p = new Player();
         for (String s : MenuPlayerNumName("1")) {
             System.out.println(s);
         }
-        m.setNamePlayer(scan.nextLine());
+        p.setPseudo(scan.nextLine());
         for (String s : MenuPlayerNumName("2")) {
             System.out.println(s);
         }

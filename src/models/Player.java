@@ -1,8 +1,11 @@
 package models;
 
+import java.text.ParseException;
+
 public class Player {
   
-    private String _pseudo;
+    private String pseudo;
+    private String pseudo2;
     private String _shape;
     private String color;
     private String color2;
@@ -10,11 +13,39 @@ public class Player {
     public Boolean _isWinner = false;
 
     public String getPseudo() {
-        return _pseudo;
+        return pseudo;
     }
-    public void setPseudo(String _pseudo) {
-        this._pseudo = _pseudo;
+
+    public void setPseudo(String player) throws ParseException {
+        int count = 0;
+        for(int i = 0; i < player.length(); i++) {    
+            if(player.charAt(i) != ' ')    
+            count++;    
+        }
+        if (count >= 1) {
+            this.pseudo = player;
+        } else {
+            throw new ParseException("You typed a invalid name !",0);
+        }
     }
+
+    public String getPseudo2() {
+        return pseudo2;
+    }
+
+    public void setPseudo2(String player2) throws ParseException {
+        int count = 0;
+        for(int i = 0; i < player2.length(); i++) {    
+            if(player2.charAt(i) != ' ')    
+            count++;    
+        }
+        if (count >= 1) {
+            this.pseudo2 = player2;
+        } else {
+            throw new ParseException("You typed a invalid name !",0);
+        }
+    }
+
     public String getShape() {
         return _shape;
     }
