@@ -63,25 +63,25 @@ public class Player {
     public void setColor(String color) {
         switch (color) {
             case "1":
-                color = "\u001B[43m";
+                color = "\u001B[33m";
                 break;
             case "2":
-                color = "\u001B[44m";
+                color = "\u001B[34m";
                 break;
             case "3":
-                color = "\u001B[40m";
+                color = "\u001B[30m";
                 break;
             case "4":
-                color = "\u001B[45m";
+                color = "\u001B[35m";
                 break;
             case "5":
-                color = "\u001B[46m";
+                color = "\u001B[36m";
                 break;
             case "6":
-                color = "\u001B[42m";
+                color = "\u001B[32m";
                 break;
             case "7":
-                color = "\u001B[47m";
+                color = "\u001B[37m";
                 break;
             case "a":
                 return;
@@ -95,25 +95,25 @@ public class Player {
     public void setColor2(String color) {
         switch (color) {
             case "1":
-                color = "\u001B[43m";
+                color = "\u001B[33m";
                 break;
             case "2":
-                color = "\u001B[44m";
+                color = "\u001B[34m";
                 break;
             case "3":
-                color = "\u001B[40m";
+                color = "\u001B[30m";
                 break;
             case "4":
-                color = "\u001B[45m";
+                color = "\u001B[35m";
                 break;
             case "5":
-                color = "\u001B[46m";
+                color = "\u001B[36m";
                 break;
             case "6":
-                color = "\u001B[42m";
+                color = "\u001B[32m";
                 break;
             case "7":
-                color = "\u001B[47m";
+                color = "\u001B[37m";
                 break;
             case "a":
                 return;
