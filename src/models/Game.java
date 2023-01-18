@@ -5,7 +5,7 @@ public class Game {
 
     //définition du tableau pour notre grille de jeu
     public static String[][] matrix = new String[6][7];
-	
+
     //provisoire en dure pour test
     private String symbolJoueur = "@";
     private String symbolJoueur2 = "=";
@@ -53,73 +53,73 @@ public class Game {
      * Méthode pour afficher notre grille dans son état actuel.
      */
     public void print2dArray() {
-		
-		for (int r = 0; r < matrix.length; r++) {
-			if (r == 0) {
-				//Print top
-				System.out.println("   1   2   3   4   5   6   7 \n");
-			} 
-			for (int c = 0; c < matrix[0].length; c++) {
-				if (c == 0) {
-					System.out.print(" | " + matrix[r][c] + " | ");
-				} else { 
-					System.out.print(matrix[r][c] + " | "); 
-				}
-			}
-			System.out.println();
-			if (r < matrix.length-1) {
-				System.out.println(" |---+---+---+---+---+---+---|");
-			} else {
-				//Print bottom
-				System.out.println(" \\===========================/");
-				System.out.println("Joueur Bob, choisisser votre colonne?\n");
-			}
-		}
-	}
+
+        for (int r = 0; r < matrix.length; r++) {
+            if (r == 0) {
+                //Print top
+                System.out.println("   1   2   3   4   5   6   7 \n");
+            }
+            for (int c = 0; c < matrix[0].length; c++) {
+                if (c == 0) {
+                    System.out.print(" | " + matrix[r][c] + " | ");
+                } else {
+                    System.out.print(matrix[r][c] + " | ");
+                }
+            }
+            System.out.println();
+            if (r < matrix.length-1) {
+                System.out.println(" |---+---+---+---+---+---+---|");
+            } else {
+                //Print bottom
+                System.out.println(" \\===========================/");
+                System.out.println("Joueur Bob, choisisser votre colonne?\n");
+            }
+        }
+    }
 
     /**
      * Affectation de chaine vide pour tout les element de la grille.
      */
     public void InitialiseMatrix(){
-		for (int r = 0; r < 6; r++) {
-			for (int c = 0; c < 7; c++) {
-				//Contenu par défault de la matrice
-				matrix[r][c] = " ";
-			}
-		}
+        for (int r = 0; r < 6; r++) {
+            for (int c = 0; c < 7; c++) {
+                //Contenu par défault de la matrice
+                matrix[r][c] = " ";
+            }
+        }
     }
-    
-    
+
+
     public void ChangePlayer()
     {
         isPlayerOneTurn = !isPlayerOneTurn;
     }
-    
+
     /**
      * Vérifie si le compteur de la colonne selectioné n'est pas négatif,
      * Ajoute le symbol du joueur en cours dans la colonne selectionné
      * @param choixJoueur [in] Int index de la colonne selectionné par le joueur pour placer un pion.
      * @return [out] Boolean indiquant si la colone choisis est déjà pleine.
      */
-    public boolean addElement(int choixJoueur) throws Exception { 
+    public boolean addElement(int choixJoueur) throws Exception {
 
         choixJoueur --;
-        boolean isFull = false; 
-        
+        boolean isFull = false;
+
         //tant que le compteur d'une colonne n'est pas dans le négatif, on peut placer dedans
         if (CompteursColone[choixJoueur] >= 0)
         {
             //On alterne le symbole placer a chaque fois que la fonction add element est appelé
             if (isPlayerOneTurn == true)
-                {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player1.getColor() + _player1.getShape() + "\u001B[0m");}
+            {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player1.getColor() + _player1.getShape() + "\u001B[0m");}
             else
-                {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player2.getColor() + _player2.getShape() + "\u001B[0m");}
+            {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player2.getColor() + _player2.getShape() + "\u001B[0m");}
 
             System.out.println(CompteursColone);
             CompteursColone[choixJoueur] -- ;
             print2dArray();
             System.out.println("compteur actuel de la colone = " + CompteursColone[choixJoueur] );
-            
+
             //on garde en mémoire des donné utile pour le reste du programme
             lastX = choixJoueur;
             lastY = CompteursColone[choixJoueur];
@@ -135,7 +135,7 @@ public class Game {
             isFull = true;
             throw new Exception("la colonne est pleine !");
         }
-       
+
         //CheckForFullBoard();
         //est ce que je return isFull ou je modifie le champs isFull de la class Jeu qui serait accésible en public ?
         return isFull;
@@ -156,7 +156,4 @@ public class Game {
         System.out.println("Tour suivant : la partie continue");
         return false;
     }
-
-
-
 }

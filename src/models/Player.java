@@ -6,8 +6,7 @@ public class Player {
 
     private String _pseudo;
     private String _shape;
-    private String color;
-    private String color2;
+    private String _color;
     private int _playCount;
     public Boolean _isWinner = false;
 
@@ -21,7 +20,7 @@ public class Player {
         return _shape;
     }
     public void setShape(String shape) throws ParseException {
-        
+
         if (shape.equalsIgnoreCase("X") || shape.equalsIgnoreCase("O") ) {
             this._shape = shape;
         } else {
@@ -30,20 +29,20 @@ public class Player {
     }
 
     public String getColor() {
-        return color;
+        return _color;
     }
-
     public void setColor(String color) throws ParseException {
         this._color = color;
 
         if (color.equalsIgnoreCase("red"))
-            { this._color = "\u001B[31m"; }   
+        { this._color = "\u001B[31m"; }
         else if(color.equalsIgnoreCase("yellow"))
-            { this._color = "\u001B[33m"; }
+        { this._color = "\u001B[33m"; }
         else
-            { throw new ParseException("Couleur choisis est non valide", 0); }
-    }
+        { throw new ParseException("Couleur choisis est non valide", 0); }
 
+
+    }
     public int getPlayCount() {
         return _playCount;
     }

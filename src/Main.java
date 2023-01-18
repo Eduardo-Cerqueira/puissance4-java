@@ -1,11 +1,9 @@
 import java.text.ParseException;
 
-import models.CreateMenu;
-import models.MenuOOP;
+import models.Menu;
 
 public class Main {
     public static void main(String[] args) throws ParseException {
-        //CreateMenu.LaunchHome();
-        MenuOOP.MenuStart();
+        Menu.MenuStart();
     }
 }
