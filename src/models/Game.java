@@ -121,8 +121,9 @@ public class Game {
             System.out.println("compteur actuel de la colone = " + CompteursColone[choixJoueur] );
 
             //on garde en mémoire des donné utile pour le reste du programme
-            lastX = choixJoueur;
-            lastY = CompteursColone[choixJoueur];
+            lastX = CompteursColone[choixJoueur];
+            lastY = choixJoueur;
+         
 
             //changement de jour
             //ChangePlayer();
