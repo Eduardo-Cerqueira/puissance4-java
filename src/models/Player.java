@@ -1,7 +1,9 @@
 package models;
+import java.text.ParseException;
+
 
 public class Player {
-  
+
     private String _pseudo;
     private String _shape;
     private String _color;
@@ -17,14 +19,29 @@ public class Player {
     public String getShape() {
         return _shape;
     }
-    public void setShape(String _shape) {
-        this._shape = _shape;
+    public void setShape(String shape) throws ParseException {
+        
+        if (shape.equalsIgnoreCase("X") || shape.equalsIgnoreCase("O") ) {
+            this._shape = shape;
+        } else {
+            throw new ParseException("Symbol choisis est non valide", 0);
+        }
     }
+
     public String getColor() {
         return _color;
     }
-    public void setColor(String _color) {
-        this._color = _color;
+    public void setColor(String color) throws ParseException {
+        this._color = color;
+
+        if (color.equalsIgnoreCase("red"))
+            { this._color = "\u001B[31m"; }   
+        else if(color.equalsIgnoreCase("yellow"))
+            { this._color = "\u001B[33m"; }
+        else
+            { throw new ParseException("Couleur choisis est non valide", 0); }
+
+
     }
     public int getPlayCount() {
         return _playCount;
