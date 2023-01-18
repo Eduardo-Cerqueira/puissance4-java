@@ -1,7 +1,9 @@
 package models;
+import java.text.ParseException;
+
 
 public class Player {
-  
+
     private String _pseudo;
     private String _shape;
     private String color;
@@ -18,79 +20,28 @@ public class Player {
     public String getShape() {
         return _shape;
     }
-    public void setShape(String _shape) {
-        this._shape = _shape;
+    public void setShape(String shape) throws ParseException {
+        
+        if (shape.equalsIgnoreCase("X") || shape.equalsIgnoreCase("O") ) {
+            this._shape = shape;
+        } else {
+            throw new ParseException("Symbol choisis est non valide", 0);
+        }
     }
+
     public String getColor() {
         return color;
     }
 
-    public String getColor2() {
-        return color2;
-    }
+    public void setColor(String color) throws ParseException {
+        this._color = color;
 
-    public void setColor(String color) {
-        switch (color) {
-            case "1":
-                color = "\u001B[43m";
-                break;
-            case "2":
-                color = "\u001B[44m";
-                break;
-            case "3":
-                color = "\u001B[40m";
-                break;
-            case "4":
-                color = "\u001B[45m";
-                break;
-            case "5":
-                color = "\u001B[46m";
-                break;
-            case "6":
-                color = "\u001B[42m";
-                break;
-            case "7":
-                color = "\u001B[47m";
-                break;
-            case "a":
-                return;
-            default:
-                System.out.println("Are you sure your answer is correct ?");
-                break;
-        }
-        this.color = color;
-    }
-
-    public void setColor2(String color) {
-        switch (color) {
-            case "1":
-                color = "\u001B[43m";
-                break;
-            case "2":
-                color = "\u001B[44m";
-                break;
-            case "3":
-                color = "\u001B[40m";
-                break;
-            case "4":
-                color = "\u001B[45m";
-                break;
-            case "5":
-                color = "\u001B[46m";
-                break;
-            case "6":
-                color = "\u001B[42m";
-                break;
-            case "7":
-                color = "\u001B[47m";
-                break;
-            case "a":
-                return;
-            default:
-                System.out.println("Are you sure your answer is correct ?");
-                break;
-        }
-        this.color2 = color;
+        if (color.equalsIgnoreCase("red"))
+            { this._color = "\u001B[31m"; }   
+        else if(color.equalsIgnoreCase("yellow"))
+            { this._color = "\u001B[33m"; }
+        else
+            { throw new ParseException("Couleur choisis est non valide", 0); }
     }
 
     public int getPlayCount() {

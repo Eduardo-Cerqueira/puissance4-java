@@ -25,6 +25,30 @@ public class Game {
     private boolean isBoardFull = false;
     public boolean isBoardFull() {return isBoardFull;}
 
+    private Player _player1;
+    private Player _player2;
+
+
+    public Game(Player player1, Player player2) {
+        _player1 = player1;
+        _player2 = player2;
+    }
+
+    //surcharge du constructeur
+    public Game(Player player1, Ia ia) {
+        _player1 = player1;
+        _player2 = new Player();
+        try {
+            _player2.setColor(ia.getSymbol());
+            _player2.setShape(ia.getSymbol());
+        }
+        catch (Exception e){
+            System.out.println("probleme recupération parametre ia");
+        }
+    }
+
+
+
     /**
      * Méthode pour afficher notre grille dans son état actuel.
      */
@@ -77,7 +101,7 @@ public class Game {
      * @param choixJoueur [in] Int index de la colonne selectionné par le joueur pour placer un pion.
      * @return [out] Boolean indiquant si la colone choisis est déjà pleine.
      */
-    public boolean addElement(int choixJoueur){
+    public boolean addElement(int choixJoueur) throws Exception { 
 
         choixJoueur --;
         boolean isFull = false; 
@@ -87,9 +111,9 @@ public class Game {
         {
             //On alterne le symbole placer a chaque fois que la fonction add element est appelé
             if (isPlayerOneTurn == true)
-                {matrix[CompteursColone[choixJoueur]][choixJoueur] = symbolJoueur;}
+                {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player1.getColor() + _player1.getShape() + "\u001B[0m");}
             else
-                {matrix[CompteursColone[choixJoueur]][choixJoueur] = symbolJoueur2;}
+                {matrix[CompteursColone[choixJoueur]][choixJoueur] = (_player2.getColor() + _player2.getShape() + "\u001B[0m");}
 
             System.out.println(CompteursColone);
             CompteursColone[choixJoueur] -- ;
@@ -101,7 +125,7 @@ public class Game {
             lastY = CompteursColone[choixJoueur];
 
             //changement de jour
-            ChangePlayer();
+            //ChangePlayer();
 
         }
         else
@@ -109,14 +133,15 @@ public class Game {
             //si le compteur de la colonne est négatif , on ne peut plus jouer dedans
             System.out.println("la colonne est pleine !");
             isFull = true;
+            throw new Exception("la colonne est pleine !");
         }
        
-        CheckForFullBoard();
+        //CheckForFullBoard();
         //est ce que je return isFull ou je modifie le champs isFull de la class Jeu qui serait accésible en public ?
         return isFull;
     }
 
-    public void CheckForFullBoard()
+    public boolean CheckForFullBoard()
     {
         if (CompteursColone[0] == -1)
         {
@@ -125,10 +150,11 @@ public class Game {
             {
                 System.out.println("TABLEAU REMPLIE PARTIE TERMINE");
                 isBoardFull = true;
-                return; //ici le return est pour mettre fin a la fonction
+                return true; //ici le return est pour mettre fin a la fonction
             }
         }
         System.out.println("Tour suivant : la partie continue");
+        return false;
     }
 
 
