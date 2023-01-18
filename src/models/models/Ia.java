@@ -19,16 +19,8 @@ public class Ia {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getSymbol() {
         return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
     }
 
     public String getDifficulty() {
@@ -41,10 +33,6 @@ public class Ia {
 
     public String[][] getMatrice() {
         return matrice;
-    }
-
-    public void setMatrice(String[][] matrice) {
-        this.matrice = matrice;
     }
 
     public static int randomColumn() {
@@ -135,10 +123,10 @@ public class Ia {
     }
 
     public static int preventPlayerPotentialHorizontalWin(String[][] matrix, int lastX, int lastY, String lastSymbol) {
-        int initialX = lastX;
-        int initialY = lastY;
+        int initialX = lastX, initialY = lastY;
         int victoryY = 0;
         boolean holeDetected = false;
+        int alignement = 0;
 
         while (lastY <= 6 && matrix[lastX][lastY].equals(lastSymbol)) {
             System.out.println(" Right victoryY == " + victoryY);
@@ -148,6 +136,7 @@ public class Ia {
             } else if (!holeDetected && lastY != 6) {
                 victoryY = lastY + 1;
             }
+            alignement++;
             lastY++;
         }
         holeDetected = false;
@@ -162,14 +151,65 @@ public class Ia {
                     victoryY = lastY;
                 }
             }
+            alignement++;
             initialY--;
         }
 
         if (victoryY == 7) {
             victoryY = 3;
         }
-        return victoryY;
+        if (alignement >= 2 && holeDetected) {
+            return victoryY;
+        } else if (alignement >= 3 && !holeDetected) {
+            return victoryY;
+        }
+        {
+            return -1;
+        }
 
+    }
+
+    public static int preventPlayerPotentialDiagonalWin(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+        int alignement = 0;
+        int victoryY = 0;
+        boolean holeDetected = false;
+        int initialX = lastX, initialY = lastY;
+        // Vérifie l'alignement en bas à gauche
+        while (initialX < 6 && initialY > 0 && matrix[initialX][initialY].equals(lastSymbol)) {
+            if (matrix[initialX][initialY].equals(" ") && initialX < 5 && initialY > 0
+                    && matrix[initialX + 1][initialY - 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = initialY;
+            } else if (!holeDetected && initialY != 0) {
+                victoryY = initialY - 1;
+            }
+            alignement++;
+            initialX++;
+            initialY--;
+        }
+        holeDetected = false;
+        // Vérifie l'alignement en haut à droite
+        while (lastX >= 0 && lastY < 7 && matrix[lastX][lastY].equals(lastSymbol)) {
+            if (matrix[lastX][lastY].equals(" ") && lastX > 0 && lastY < 6
+                    && matrix[lastX - 1][lastY + 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = lastY;
+            } else if (!holeDetected && lastY != 7) {
+                victoryY = lastY + 1;
+            }
+            alignement++;
+            lastX--;
+            lastY++;
+        }
+
+        System.out.println(victoryY);
+        if (alignement >= 2 && holeDetected) {
+            return victoryY;
+        } else if (alignement >= 3 && !holeDetected) {
+            return victoryY;
+        } else {
+            return -1;
+        }
     }
 
     public static int preventPlayerVictory(String[][] matrix, int lastX, int lastY, String lastSymbol) {
