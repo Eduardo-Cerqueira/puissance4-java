@@ -11,7 +11,6 @@ public class Ia {
         this.name = "Michel";
         this.symbol = symbol;
         this.difficulty = difficulty;
-        this.matrice = matrix;
     }
 
     public String getName() {
@@ -259,6 +258,7 @@ public class Ia {
             lastX--;
             lastY++;
         }
+        System.out.println(victoryY);
         if (alignement >= 2 && holeDetected) {
             return victoryY;
         } else if (alignement >= 3 && !holeDetected) {
