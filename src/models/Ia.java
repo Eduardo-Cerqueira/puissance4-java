@@ -7,12 +7,12 @@ public class Ia {
     private String difficulty;
     private String color;
 
-    public Ia(String symbol, String difficulty, String[][] matrix) {
+    public Ia(String difficulty, String[][] matrix) {
 
         this.name = "Michel";
-        this.symbol = symbol;
+        this.symbol = "@";
         this.difficulty = difficulty;
-        this.color = color;
+        this.color = "\u001B[35m";
     }
 
     public String getName() {
