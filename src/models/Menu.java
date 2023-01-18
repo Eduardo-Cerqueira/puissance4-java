@@ -146,16 +146,16 @@ public class Menu {
             String choix = scan.nextLine();
             switch (choix) {
                 case "1":
-                    lauchGameWithIA(1);
+                    lauchGameWithIA("Easy");
                     break;
                 case "2":
-                    lauchGameWithIA(2);
+                    lauchGameWithIA("Standard");
                     break;
                 case "3":
-                    lauchGameWithIA(3);
+                    lauchGameWithIA("Hard");
                     break;
                 case "4":
-                    lauchGameWithIA(4);
+                    lauchGameWithIA("Hell");
                     break;
                 default:
                     System.out.println("Boulet!!!!");
@@ -166,9 +166,62 @@ public class Menu {
     }
 
 
-    private static void lauchGameWithIA(int difficulty)
+    private static void lauchGameWithIA(String difficulty)
     {
+        Ia robot = new Ia(difficulty, Game.matrix);
+        Player joueur1 = CreatePlayer();
+        Player joueurIA = new Player();
+        try {
+            joueurIA.setColor("yellow");
+            joueurIA.setShape(robot.getSymbol());
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        Game iaGame = new Game(joueur1, joueurIA);
+        iaGame.InitialiseMatrix();
+        iaGame.print2dArray();
+        while (iaGame.CheckForFullBoard() == false)
+        {
+           
 
+            if(iaGame.getPlayerOneTurn()){
+                System.out.println("Saisisser le numéro de la colonne pour votre jeton:");
+                //recupération de la saisie utilisateur avec Scanner et conversion du string récupéré en Int avec Integer
+    
+                // try {
+                //     multiGame.addElement(  Integer.parseInt(scan.nextLine())          ) ;
+                // }
+                // catch (NumberFormatException ex){
+                //     ex.printStackTrace();
+                // }
+    
+                do {
+                    try {
+                        iaGame.addElement(  Integer.parseInt(scan.nextLine())       ) ;
+                        break;
+                    } catch (ParseException e) {
+                        System.out.println("saisie incorrect");
+                    }catch(Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                } while (true);
+        
+            }
+            else{
+                try {
+                    iaGame.addElement(robot.iaColumn(Game.matrix, iaGame.getLastX(), iaGame.getLastY(), joueur1.getShape())) ;
+                } catch (Exception e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            
+            
+
+            System.out.println("--------------- Changement de joueur ! ---------------");
+            iaGame.ChangePlayer();
+        }
     }
 
 

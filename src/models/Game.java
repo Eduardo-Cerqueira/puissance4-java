@@ -14,8 +14,10 @@ public class Game {
     //ensemble des compteur représentant le remplissage de chacune des colones
     private int[] CompteursColone ={5, 5, 5, 5, 5, 5, 5};
     //variable pour garder le suivi du tour de jeu
-    boolean isPlayerOneTurn = true;
-
+    private boolean isPlayerOneTurn = true;
+    public boolean getPlayerOneTurn() {
+        return isPlayerOneTurn;
+    }
 
     private int lastX;
     public int getLastX() {return lastX;}

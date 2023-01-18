@@ -10,7 +10,7 @@ public class Ia {
     public Ia(String difficulty, String[][] matrix) {
 
         this.name = "Michel";
-        this.symbol = "@";
+        this.symbol = "O";
         this.difficulty = difficulty;
         this.color = "\u001B[35m";
     }
