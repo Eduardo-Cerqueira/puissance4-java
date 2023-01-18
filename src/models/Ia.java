@@ -5,12 +5,14 @@ public class Ia {
     private String name;
     private String symbol;
     private String difficulty;
+    private String color;
 
     public Ia(String symbol, String difficulty, String[][] matrix) {
 
         this.name = "Michel";
         this.symbol = symbol;
         this.difficulty = difficulty;
+        this.color = color;
     }
 
     public String getName() {
@@ -19,6 +21,14 @@ public class Ia {
 
     public String getSymbol() {
         return symbol;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public String getDifficulty() {
