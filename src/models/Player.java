@@ -6,7 +6,8 @@ public class Player {
 
     private String _pseudo;
     private String _shape;
-    private String _color;
+    private String color;
+    private String color2;
     private int _playCount;
     public Boolean _isWinner = false;
 
@@ -29,8 +30,9 @@ public class Player {
     }
 
     public String getColor() {
-        return _color;
+        return color;
     }
+
     public void setColor(String color) throws ParseException {
         this._color = color;
 
@@ -40,9 +42,8 @@ public class Player {
             { this._color = "\u001B[33m"; }
         else
             { throw new ParseException("Couleur choisis est non valide", 0); }
-
-
     }
+
     public int getPlayCount() {
         return _playCount;
     }
