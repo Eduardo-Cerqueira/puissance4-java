@@ -1,19 +1,20 @@
 # Projet JAVA - Puissance 4 (le vrai)
 
 ## Khaled KOUADRIA 
-Création de la classe menu et ses methodes
-Création du mode joueur contre joueur
-Création de la classe Game gérant les mecanique de jeu (ajout de jeton, vérifcation victoire et grille pleine ...)
-Création de la classe player et mecanime de vérification des setters
+Création de la classe menu et ses methodes - 
+Mise en place du systeme de couleur pour les jetons - 
+Création du mode joueur contre joueur et participation au mode Joueur VS IA - 
+Création de la classe Game gérant les mecanique de jeu (ajout de jeton, vérifcation victoire et grille pleine ...) -
+Création de la classe player et mecanime de vérification des setters 
 
 ## Valdo MARGUERITE
-Création des IA (niv 1 & 2)
-Detection alignement jeton (utilisé pour l'ia et la detection de victoire)
-Création du mode IA vs Player
+Création des IA (niv 1 & 2) - 
+Detection alignement jeton (utilisé pour l'ia et la detection de victoire) - 
+Création du mode IA vs joueur
 
 ## Eduardo DE CASTRO CERQUEIRA
-Création classe ScoreSerializer et mise en place de la sérialition des score et désérialisation du top10
-Création des visuels pour les menus
+Création classe ScoreSerializer et mise en place de la sérialition des score et désérialisation du top10 - 
+Création des visuels pour les menus - 
 Création du modele de grille pour le jeu et son affichage
 
 ## Matteo BRUNO (scrum master)
