@@ -91,14 +91,6 @@ public class Menu {
             System.out.println("Saisisser le numéro de la colonne pour votre jeton:");
             // recupération de la saisie utilisateur avec Scanner et conversion du string
             // récupéré en Int avec Integer
-
-            // try {
-            // multiGame.addElement( Integer.parseInt(scan.nextLine()) ) ;
-            // }
-            // catch (NumberFormatException ex){
-            // ex.printStackTrace();
-            // }
-
             do {
                 try {
                     multiGame.addElement(Integer.parseInt(scan.nextLine()));
@@ -109,10 +101,14 @@ public class Menu {
                     System.out.println(e.getMessage());
                 }
             } while (true);
+            if (multiGame.checkForVictory()) {
+                break;
+            }
 
             System.out.println("--------------- Changement de joueur ! ---------------");
             multiGame.ChangePlayer();
         }
+
     }
 
     private static void displayIALevelSelectionMenu() {
@@ -156,6 +152,7 @@ public class Menu {
     }
 
     private static void lauchGameWithIA(String difficulty) {
+
         Ia robot = new Ia(difficulty, Game.matrix);
         Player joueur1 = CreatePlayer();
         Player joueurIA = new Player();
@@ -173,16 +170,6 @@ public class Menu {
 
             if (iaGame.getPlayerOneTurn()) {
                 System.out.println("Saisisser le numéro de la colonne pour votre jeton:");
-                // recupération de la saisie utilisateur avec Scanner et conversion du string
-                // récupéré en Int avec Integer
-
-                // try {
-                // multiGame.addElement( Integer.parseInt(scan.nextLine()) ) ;
-                // }
-                // catch (NumberFormatException ex){
-                // ex.printStackTrace();
-                // }
-
                 do {
                     try {
                         iaGame.addElement(Integer.parseInt(scan.nextLine()));
@@ -197,23 +184,28 @@ public class Menu {
             } else {
                 do {
                     try {
-                        String lastSymbolPlayed = joueur1.getColor() + joueur1.getShape() + "\u001B[0m";
-                        iaGame.addElement(
-                                robot.iaColumn(Game.matrix, iaGame.getLastX(), iaGame.getLastY(), lastSymbolPlayed));
+                        iaGame.addElement(robot.iaColumn(Game.matrix, iaGame.getLastX(), iaGame.getLastY(),
+                                iaGame.getLastSymbolPlayed()));
                         break;
                     } catch (Exception e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                        // e.printStackTrace();
+                        System.out.println(e.getMessage());
                     }
                 } while (true);
 
             }
 
-            /*
-             * System.out.println(robot.verifVerticalAlignement(Game.matrix,
-             * iaGame.getLastX(), iaGame.getLastX(),
-             * joueur1.getShape()));
-             */
+            if (iaGame.checkForVictory()) {
+
+                if (iaGame.getPlayerOneTurn()) {
+                    System.out.println(joueur1.getPseudo() + " a gagné !");
+                    break;
+                } else {
+                    System.out.println(robot.getName() + " a gagné ! ");
+                    break;
+                }
+            }
+
             System.out.println("--------------- Changement de joueur ! ---------------");
             iaGame.ChangePlayer();
         }
