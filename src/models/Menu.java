@@ -41,6 +41,7 @@ public class Menu {
                     MenuIA();
                     break;
                 case "3":
+                    Player.sortByScore();
                     break;
                 case "a":
                     scan.close();
@@ -220,6 +221,7 @@ public class Menu {
 
     // test
     public static void LauchSoloGame() {
+
         Player J1 = new Player();
         Player J2 = new Player();
 
