@@ -58,7 +58,8 @@ public class Ia {
     public static int verifVerticalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
         int alignement = 0;
         // Vérifie l'alignement en haut en bas
-        while (lastX < 6 && matrix[lastX][lastY].equals(lastSymbol)) {
+        while (lastX < 6 && (matrix[lastX][lastY]).equalsIgnoreCase(lastSymbol)) {
+            System.out.println("Je suis là aussi");
             alignement++;
             lastX++;
         }
@@ -296,12 +297,24 @@ public class Ia {
         int column = 0;
 
         System.out.println(verifVerticalAlignement(matrix, lastX, lastY, lastSymbol));
-
+        System.out.println(lastSymbol);
         if (verifVerticalAlignement(matrix, lastX, lastY, lastSymbol) == 3) {
-            column = lastY + 1;
+            System.out.println("Enter 1");
+            if (lastX == 0) {
+                column = randomColumn();
+            } else {
+                column = lastY + 1;
+            }
+
         } else if (preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) != -1) {
-            column = preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) + 1;
+            System.out.println("Enter 2");
+            if (lastX == 0) {
+                column = randomColumn();
+            } else {
+                column = preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) + 1;
+            }
         } else {
+            System.out.println("Enter 3");
             column = randomColumn();
         }
         return column;
