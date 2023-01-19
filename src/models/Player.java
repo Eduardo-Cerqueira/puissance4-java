@@ -61,6 +61,6 @@ public class Player implements Comparator<Player> {
 
     public int compare(Player a, Player b) 
     {
-        return b.getPlayCount() - a.getPlayCount();
+        return a.getPlayCount() - b.getPlayCount();
     }
 }
