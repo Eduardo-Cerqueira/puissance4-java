@@ -16,10 +16,14 @@ public class ScoreSerializer  {
         this.player = player;
     }
 
-    /* Function to save the player score (PlayCount)
+
+    /**
+     * Function to save the player score (PlayCount)
      * Open a FileWrite to create a file at "src/data/scores.csv" and edit
      * The line created at scores.csv is going to be PlayerPseudo;PlayerPlayCount like -> Me;15
-    */
+     * @param p player who win and need to have his data (name + playCount) serialized
+     * @throws IOException
+     */
     public static void savePlayCount(Player p) throws IOException {
         try {
             FileWriter file = new FileWriter("src/data/scores.csv", true);
@@ -30,7 +34,8 @@ public class ScoreSerializer  {
         }
     }
 
-    /* Function to sort Players by Score using a ArrayList from the function allScores
+    /**
+     * Function to sort Players by Score using a ArrayList from the function allScores
      * The function sort only 10 players because of i < 10 and 
      * because Collections.sort sort Players by Score, 
      * we only get the top 10 best players
@@ -92,4 +97,18 @@ public class ScoreSerializer  {
         }
         return list;
     }
+
+
+    /**
+     * lauch the function that serialized the player info and take care of exeptions
+     * @param joueurWinner the player to serialized
+     */
+    public static void lauchScoreSerializer(Player joueurWinner){
+        try {
+            savePlayCount(joueurWinner);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }

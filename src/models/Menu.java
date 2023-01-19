@@ -1,5 +1,6 @@
 package models;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -8,6 +9,9 @@ public class Menu {
 
     private static Scanner scan = new Scanner(System.in);
 
+    /**
+     * Genere un affichage console d'un écrant d'acceuil pour permettre au joueur de selectionné son mode de jeu
+     */
     public static void displayMenu() {
         ArrayList<String> menus = new ArrayList<>();
         menus.add("[--------------- MENU ---------------]");
@@ -23,6 +27,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Demande a l'utilisateur une saisie console du mode de jeu souhaiter, récupérè cette information, 
+     * et lance les fonctions pour démarer le mode selectionné
+     */
     public static void MenuStart() {
         displayMenu();
         while (true) {
@@ -32,12 +40,12 @@ public class Menu {
                     System.out.println("-------- joueur 1 - indiquer vos informations --------");
                     Player joueur1 = CreatePlayer();
                     System.out.println("-------- joueur 2 - indiquer vos informations --------");
-                    Player joueur2 = CreatePlayer();
+                    System.out.println("Saisir le pseudo:");
+                    Player joueur2 = createAdversary(joueur1, scan.nextLine());
+                    
                     LaunchMultiplayerGame(joueur1, joueur2);
                     break;
                 case "2":
-                    // CreatePlayer();
-                    // LauchSoloGame();
                     MenuIA();
                     break;
                 case "3":
@@ -54,6 +62,10 @@ public class Menu {
         }
     }
 
+    /**
+     * Créer une nouvelle instance de joueur et remplie des champs en récupérant des saisie utilisateurs
+     * @return la référence sur l'objet player instancié.
+     */
     private static Player CreatePlayer() {
 
         Player player = new Player();
@@ -83,6 +95,49 @@ public class Menu {
         return player;
     }
 
+    /**
+     * Crée une instance de joueur dont les champs seront définie en opposition a ceux du player1
+     * (l'adversaire n'a pas le choix pour sa création afin d'éviter les doublons et conflicts, à l'exeption du nom)
+     * @param joueur1 le premier joueur instancié
+     * @param name le nom que devra prendre l'adversaire du joueur1
+     * @return la référence sur l'objet player Adversary instancié
+     */
+    private static Player createAdversary(Player joueur1, String name){
+        Player adversary = new Player();
+        try {
+            if (joueur1.getColor().equalsIgnoreCase("\u001B[31m")) //red
+            {
+                adversary.setColor("yellow");
+            }
+            else
+            {
+                adversary.setColor("red");
+            }
+
+            if (joueur1.getShape().equalsIgnoreCase("x"))
+            {
+                adversary.setShape("o");
+            }
+            else
+            {
+                adversary.setShape("x");
+            }
+
+            adversary.setPseudo(name);
+        }
+        catch (Exception e){
+            System.out.println("probleme recupération donné pour la construction de l'adversaire");
+        }
+
+        return adversary;
+    }
+
+    /**
+     * Creer une nouvelle instance de Game et tourne en boucle sur les fonctions qui constitue 
+     * le déroulement d'une partie Joueur contre Joueur tout en gérant les exeption qui peuvent survenir.
+     * @param joueur1
+     * @param joueur2
+     */
     private static void LaunchMultiplayerGame(Player joueur1, Player joueur2) {
         Game multiGame = new Game(joueur1, joueur2);
         multiGame.InitialiseMatrix();
@@ -95,6 +150,11 @@ public class Menu {
             do {
                 try {
                     multiGame.addElement(Integer.parseInt(scan.nextLine()));
+                    //augmentation du playCount du joueur pour chaque jeton placé
+                    if (multiGame.getPlayerOneTurn())
+                    {joueur1.setPlayCount(joueur1.getPlayCount() + 1);} 
+                    else
+                    {joueur2.setPlayCount(joueur2.getPlayCount() + 1);}
                     break;
                 } catch (ParseException e) {
                     System.out.println("saisie incorrect");
@@ -102,13 +162,16 @@ public class Menu {
                     System.out.println(e.getMessage());
                 }
             } while (true);
+            
+            //vérification de victoire et sérialisation du gagnant si il y en a un
             if (multiGame.checkForVictory()) {
-
                 if (multiGame.getPlayerOneTurn()) {
                     System.out.println(joueur1.getPseudo() + " a gagné !");
+                    ScoreSerializer.lauchScoreSerializer(joueur1);
                     break;
                 } else {
-                    System.out.println(joueur2.getPseudo() + " a gagné ! ");
+                    System.out.println(joueur2.getPseudo() + " a gagné !");
+                    ScoreSerializer.lauchScoreSerializer(joueur2);
                     break;
                 }
             }
@@ -130,8 +193,6 @@ public class Menu {
         menus.add("|                                    |");
         menus.add("|             1: Easy                |");
         menus.add("|             2: Standard            |");
-        menus.add("|             3: Hard                |");
-        menus.add("|             4: Hell                |");
         menus.add("|                                    |");
         menus.add("[------------------------------------]");
         for (String s : menus) {
@@ -154,14 +215,8 @@ public class Menu {
                 case "2":
                     lauchGameWithIA("Standard");
                     break;
-                case "3":
-                    lauchGameWithIA("Hard");
-                    break;
-                case "4":
-                    lauchGameWithIA("Hell");
-                    break;
                 default:
-                    System.out.println("Boulet!!!!");
+                    System.out.println("Selection erroné!!!!");
                     break;
             }
             displayIALevelSelectionMenu();
@@ -169,21 +224,16 @@ public class Menu {
     }
 
     /**
-     * La fonction lauchGameWithIA permet de lancer une partie contre un joueur IA
-     * 
+     * Creer une nouvelle instance de Game et tourne en boucle sur les fonctions qui constitue 
+     * le déroulement d'une partie Joueur contre IA tout en gérant les exeption qui peuvent survenir.
      * @param difficulty Niveau de difficulté de l'IA
      */
     private static void lauchGameWithIA(String difficulty) {
         // Initialisation des objets joueur et IA
         Ia robot = new Ia(difficulty, Game.matrix);
         Player joueur1 = CreatePlayer();
-        Player joueurIA = new Player();
-        try {
-            joueurIA.setColor("yellow");
-            joueurIA.setShape(robot.getSymbol());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        Player joueurIA = createAdversary(joueur1, robot.getName());
+
         // Initialisation d'une nouvelle partie avec les joueurs créés
         Game iaGame = new Game(joueur1, joueurIA);
         iaGame.InitialiseMatrix();
@@ -196,6 +246,7 @@ public class Menu {
                 do {
                     try {
                         iaGame.addElement(Integer.parseInt(scan.nextLine()));
+                        joueur1.setPlayCount(joueur1.getPlayCount() + 1);
                         break;
                     } catch (ParseException e) {
                         System.out.println("saisie incorrect");
@@ -216,12 +267,14 @@ public class Menu {
                 } while (true);
             }
             // Vérifie si un joueur a gagné
+            //spécificité lauchGameWithAi : on ne sérialise pas le joueur2 (joueurIA) si il gagne 
             if (iaGame.checkForVictory()) {
                 if (iaGame.getPlayerOneTurn()) {
                     System.out.println(joueur1.getPseudo() + " a gagné !");
+                    ScoreSerializer.lauchScoreSerializer(joueur1);
                     break;
                 } else {
-                    System.out.println(robot.getName() + " a gagné ! ");
+                    System.out.println(joueurIA.getPseudo() + " a gagné ! ");
                     break;
                 }
             }
@@ -230,49 +283,5 @@ public class Menu {
         }
     }
 
-    // test
-    public static void LauchSoloGame() {
-
-        Player J1 = new Player();
-        Player J2 = new Player();
-
-        J1.setPseudo("tartuffe");
-        try {
-            J1.setShape("x");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        J1.setPseudo("tartuffe");
-        try {
-            J1.setShape("x");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        Game puissance4 = new Game(J1, J2);
-        puissance4.InitialiseMatrix();
-        puissance4.print2dArray();
-
-        while (puissance4.isBoardFull() == false) {
-            System.out.println("Saisisser le numéro de la colonne pour votre jeton:");
-            // recupération de la saisie utilisateur avec Scanner et conversion du string
-            // récupéré en Int avec Integer
-
-            try {
-                // puissance4.addElement( Integer.parseInt(scan.nextLine()) ) ;
-            } catch (NumberFormatException ex) {
-                ex.printStackTrace();
-            }
-
-            System.out.println("--------------- Changement de joueur ! ---------------");
-            puissance4.ChangePlayer();
-        }
-        // if (puissance4.checkForVictory == true)
-        // { }
-        // else
-        // {System.out.println("partie nul");}
-
-    }
 
 }

@@ -8,10 +8,6 @@ public class Game {
     // définition du tableau pour notre grille de jeu
     public static String[][] matrix = new String[6][7];
 
-    // provisoire en dure pour test
-    private String symbolJoueur = "@";
-    private String symbolJoueur2 = "=";
-
     // ensemble des compteur représentant le remplissage de chacune des colones
     private int[] CompteursColone = { 5, 5, 5, 5, 5, 5, 5 };
     // variable pour garder le suivi du tour de jeu
@@ -21,6 +17,7 @@ public class Game {
         return isPlayerOneTurn;
     }
 
+    //on garde en mémoire les coordonné du dernier jeton placé pour les besoin de l'ia
     private int lastX;
 
     public int getLastX() {
@@ -33,6 +30,7 @@ public class Game {
         return lastY;
     }
 
+    //on garde en mémoire le string exact representant le dernier symbole placé pour les besoin de l'ia
     private String lastSymbolPlayed;
 
     public String getLastSymbolPlayed() {
@@ -53,17 +51,6 @@ public class Game {
         _player2 = player2;
     }
 
-    // surcharge du constructeur
-    public Game(Player player1, Ia ia) {
-        _player1 = player1;
-        _player2 = new Player();
-        try {
-            _player2.setColor(ia.getSymbol());
-            _player2.setShape(ia.getSymbol());
-        } catch (Exception e) {
-            System.out.println("probleme recupération parametre ia");
-        }
-    }
 
     /**
      * Méthode pour afficher notre grille dans son état actuel.
@@ -105,6 +92,9 @@ public class Game {
         }
     }
 
+    /**
+     * Permet d'alterner entre les deux joueur qui sont associé a la partie.
+     */
     public void ChangePlayer() {
         isPlayerOneTurn = !isPlayerOneTurn;
     }
@@ -119,11 +109,11 @@ public class Game {
      */
     public boolean addElement(int choixJoueur) throws Exception {
 
+        //réduction de -1 car notre matrice en code commence a l'index 0 et non pas vraiment à 1 comme affiché au joueur
         choixJoueur--;
         boolean isFull = false;
 
-        // tant que le compteur d'une colonne n'est pas dans le négatif, on peut placer
-        // dedans
+        // tant que le compteur d'une colonne n'est pas dans le négatif, on peut placer dedans
         if (CompteursColone[choixJoueur] >= 0) {
             // On alterne le symbole placer a chaque fois que la fonction add element est
             // appelé
@@ -142,12 +132,9 @@ public class Game {
             print2dArray();
             System.out.println("compteur actuel de la colone = " + CompteursColone[choixJoueur]);
 
-            // on garde en mémoire des donné utile pour le reste du programme
+            // on garde en mémoire des donné utile pour le reste du programme (ia)
             lastX = CompteursColone[choixJoueur] + 1;
             lastY = choixJoueur;
-
-            // changement de jour
-            // ChangePlayer();
 
         } else {
             // si le compteur de la colonne est négatif , on ne peut plus jouer dedans
@@ -162,6 +149,12 @@ public class Game {
         return isFull;
     }
 
+    /**
+     * Vérifie la valeur de nos Compteurs de colones , si et seulement si 
+     * celui de la premiere colonne est passé en négatif, alors on vérifie si tout les autre compteur sont eux aussi a la meme valeur.
+     * Si tout les compteur de colonne sont en effet passé en négatif, alors la grille est pleine.
+     * @return [out] Boolean indiquant si la grille de jeu est pleine
+     */
     public boolean CheckForFullBoard() {
         if (CompteursColone[0] == -1) {
             // si tout les compteur de mes colonnes sont éguale, cela signifie qu'il sont
@@ -176,6 +169,12 @@ public class Game {
         return false;
     }
 
+
+    /**
+     * Réutilise les methode de detection d'alignement de symbole créer pour la prise de décision de l'IA 
+     * mais cette fois ci pour detecté une victoire dans le cas ou la detection nous renvoie que 4 symbol sont aligné 
+     * @return true si on detecte un alignement de 4 symbole, sinon return false
+     */
     public boolean checkForVictory() {
         if (Ia.verifVerticalAlignement(matrix, lastX, lastY, lastSymbolPlayed) >= 4) {
             return true;

@@ -3,32 +3,16 @@ package models;
 public class Ia {
 
     private String name;
-    private String symbol;
     private String difficulty;
-    private String color;
 
     public Ia(String difficulty, String[][] matrix) {
 
-        this.name = "Michel";
-        this.symbol = "O";
+        this.name = "VincentIA"; //valeur par default
         this.difficulty = difficulty;
-        this.color = "\u001B[35m";
     }
 
     public String getName() {
         return name;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public String getDifficulty() {
