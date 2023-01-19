@@ -44,11 +44,6 @@ public class ScoreSerializer  {
         }
     }
 
-    public int compare(Player a, Player b) 
-    { 
-        return b.getPlayCount() - a.getPlayCount();
-    }
-
     public static final String spliter = ";";
 
     public String toString() {
