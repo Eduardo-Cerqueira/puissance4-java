@@ -98,14 +98,14 @@ public class Ia {
 
     /**
      * La fonction verifRightDiagonalAlignement vérifie s'il y a un alignement
-     * diagonal (bas-gauche, haut-droite) de jetons d'un joueur donné à partir d'une
+     * diagonal (bas-droite, haut-gauche) de jetons d'un joueur donné à partir d'une
      * position donnée sur le plateau de jeu.
      *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
      * @param lastSymbol Symbole du joueur courant ('X' ou 'O')
-     * @return Le nombre de jetons alignés en diagonale (bas-gauche, haut-droite)
+     * @return Le nombre de jetons alignés en diagonale (bas-droite, haut-gauche)
      */
     public static int verifRightDiagonalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
         int alignement = 0;
@@ -114,31 +114,32 @@ public class Ia {
         int initialY = lastY;
 
         // bas en haut
-        while (lastX >= 0 && lastY < 7 && matrix[lastX][lastY] == lastSymbol) {
+        while (lastX >= 0 && lastY >= 0 && matrix[lastX][lastY].equals(lastSymbol)) {
             alignement++;
             lastX--;
-            lastY++;
+            lastY--;
         }
 
         // haut en bas
-        while (initialX < 7 && initialY >= 0 && matrix[initialX][initialY] == lastSymbol) {
+        while (initialX < 6 && initialY < 7 && matrix[initialX][initialY].equals(lastSymbol)) {
             alignement++;
             initialX++;
-            initialY--;
+            initialY++;
         }
         return alignement - 1;
     }
 
     /**
      * La fonction verifLeftDiagonalAlignement vérifie s'il y a un alignement
-     * diagonal de jetons d'un joueur donné à partir d'une position donnée sur le
-     * plateau de jeu (diagonale gauche)
+     * diagonal (bas-gauche, haut-droite) de jetons d'un joueur donné à partir d'une
+     * position donnée sur le
+     * plateau de jeu.
      *
      * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
      * @param lastX      Coordonnée en X de la dernière case jouée
      * @param lastY      Coordonnée en Y de la dernière case jouée
      * @param lastSymbol Symbole du joueur courant ('X' ou 'O')
-     * @return Le nombre de jetons alignés diagonalement
+     * @return Le nombre de jetons alignés diagonalement (bas-gauche, haut-droite)
      */
 
     public static int verifLeftDiagonalAlignement(String[][] matrix, int lastX, int lastY, String lastSymbol) {
@@ -147,18 +148,18 @@ public class Ia {
         int initialX = lastX;
         int initialY = lastY;
 
-        // bas en haut
-        while (lastX < 7 && lastY < 7 && matrix[lastX][lastY] == lastSymbol) {
+        // bas gauche en haut droite
+        while (lastX >= 0 && lastY < 7 && matrix[lastX][lastY].equals(lastSymbol)) {
             alignement++;
-            lastX++;
+            lastX--;
             lastY++;
         }
 
         // haut en bas
-        while (initialY >= 0 && initialX >= 0 && matrix[initialX][initialY] == lastSymbol) {
+        while (initialY >= 0 && initialX < 6 && matrix[initialX][initialY].equals(lastSymbol)) {
             alignement++;
             initialY--;
-            initialX--;
+            initialX++;
         }
         return alignement - 1;
     }
@@ -234,24 +235,13 @@ public class Ia {
      *         1 à 7) ou -1 si aucune victoire potentielle n'est détectée
      */
 
-    public static int preventPlayerPotentialDiagonalWin(String[][] matrix, int lastX, int lastY, String lastSymbol) {
+    public static int preventPlayerPotentialLeftDiagonalWin(String[][] matrix, int lastX, int lastY,
+            String lastSymbol) {
         int alignement = 0;
         int victoryY = 0;
         boolean holeDetected = false;
         int initialX = lastX, initialY = lastY;
-        while (initialX < 6 && initialY > 0 && matrix[initialX][initialY].equals(lastSymbol)) {
-            if (matrix[initialX][initialY].equals(" ") && initialX < 5 && initialY > 0
-                    && matrix[initialX + 1][initialY - 1].equals(lastSymbol)) {
-                holeDetected = true;
-                victoryY = initialY;
-            } else if (!holeDetected && initialY != 0) {
-                victoryY = initialY - 1;
-            }
-            alignement++;
-            initialX++;
-            initialY--;
-        }
-        holeDetected = false;
+
         while (lastX >= 0 && lastY < 7 && matrix[lastX][lastY].equals(lastSymbol)) {
             if (matrix[lastX][lastY].equals(" ") && lastX > 0 && lastY < 6
                     && matrix[lastX - 1][lastY + 1].equals(lastSymbol)) {
@@ -264,7 +254,66 @@ public class Ia {
             lastX--;
             lastY++;
         }
-        System.out.println(victoryY);
+
+        holeDetected = false;
+
+        while (initialX < 6 && initialY >= 0 && matrix[initialX][initialY].equals(lastSymbol)) {
+            if (matrix[initialX][initialY].equals(" ") && initialX < 5 && initialY > 0
+                    && matrix[initialX + 1][initialY - 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = initialY;
+            } else if (!holeDetected && initialY != 0) {
+                victoryY = lastY;
+            }
+            alignement++;
+            initialX++;
+            initialY--;
+        }
+
+        if (alignement >= 2 && holeDetected) {
+            return victoryY;
+        } else if (alignement >= 3 && !holeDetected) {
+            return victoryY;
+        } else {
+            return -1;
+        }
+    }
+
+    public static int preventPlayerPotentialRightDiagonalWin(String[][] matrix, int lastX, int lastY,
+            String lastSymbol) {
+        int alignement = 0;
+        int victoryY = 0;
+        boolean holeDetected = false;
+        int initialX = lastX, initialY = lastY;
+
+        while (lastX >= 0 && lastY >= 0 && matrix[lastX][lastY].equals(lastSymbol)) {
+            if (matrix[lastX][lastY].equals(" ") && lastX > 0 && lastY < 6
+                    && matrix[lastX - 1][lastY + 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = lastY;
+            } else if (!holeDetected && lastY != 7) {
+                victoryY = lastY + 1;
+            }
+            alignement++;
+            lastX--;
+            lastY--;
+        }
+
+        holeDetected = false;
+
+        while (initialX < 6 && initialY < 7 && matrix[initialX][initialY].equals(lastSymbol)) {
+            if (matrix[initialX][initialY].equals(" ") && initialX < 5 && initialY > 0
+                    && matrix[initialX + 1][initialY - 1].equals(lastSymbol)) {
+                holeDetected = true;
+                victoryY = initialY;
+            } else if (!holeDetected && initialY != 0) {
+                victoryY = lastY;
+            }
+            alignement++;
+            initialX++;
+            initialY++;
+        }
+
         if (alignement >= 2 && holeDetected) {
             return victoryY;
         } else if (alignement >= 3 && !holeDetected) {
@@ -305,6 +354,16 @@ public class Ia {
             } else {
                 column = preventPlayerPotentialHorizontalWin(matrix, lastX, lastY, lastSymbol) + 1;
             }
+        } else if (preventPlayerPotentialLeftDiagonalWin(matrix, lastX, lastY, lastSymbol) != -1
+                && verifLeftDiagonalAlignement(matrix, lastX, lastY, lastSymbol) != 2) {
+            column = preventPlayerPotentialLeftDiagonalWin(matrix, lastX, lastY, lastSymbol) + 1;
+            System.out.println(column);
+
+        } else if (preventPlayerPotentialRightDiagonalWin(matrix, lastX, lastY, lastSymbol) != -1
+                && verifRightDiagonalAlignement(matrix, lastX, lastY, lastSymbol) != 2) {
+            column = preventPlayerPotentialRightDiagonalWin(matrix, lastX, lastY, lastSymbol) + 1;
+            System.out.println(column);
+
         } else {
             column = randomColumn();
         }

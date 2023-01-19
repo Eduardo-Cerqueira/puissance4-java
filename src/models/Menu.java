@@ -102,7 +102,14 @@ public class Menu {
                 }
             } while (true);
             if (multiGame.checkForVictory()) {
-                break;
+
+                if (multiGame.getPlayerOneTurn()) {
+                    System.out.println(joueur1.getPseudo() + " a gagné !");
+                    break;
+                } else {
+                    System.out.println(joueur2.getPseudo() + " a gagné ! ");
+                    break;
+                }
             }
 
             System.out.println("--------------- Changement de joueur ! ---------------");
