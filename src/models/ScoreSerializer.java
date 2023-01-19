@@ -6,7 +6,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 public class ScoreSerializer  {
 
@@ -41,7 +40,7 @@ public class ScoreSerializer  {
                 }
             }
         } catch (IOException error) {
-            error.printStackTrace();
+            System.out.println("\nNo score to show !\n");
         }
     }
 
