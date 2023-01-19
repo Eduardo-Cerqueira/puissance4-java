@@ -2,7 +2,7 @@ package models;
 import java.text.ParseException;
 import java.util.Comparator;
 
-
+// implements Comparator to compare itself for score
 public class Player implements Comparator<Player> {
 
     private String _pseudo;
@@ -59,6 +59,7 @@ public class Player implements Comparator<Player> {
         this._isWinner = _isWinner;
     }
 
+    // Compare score of 2 players objects and find if 'player a' have a bigger score than 'player b'
     public int compare(Player a, Player b) 
     {
         return a.getPlayCount() - b.getPlayCount();
