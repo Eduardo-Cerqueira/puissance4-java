@@ -41,7 +41,7 @@ public class Menu {
                     MenuIA();
                     break;
                 case "3":
-                    Player.sortByScore();
+                    ScoreSerializer.sortByScore();
                     break;
                 case "a":
                     scan.close();
