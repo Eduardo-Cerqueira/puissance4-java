@@ -42,6 +42,7 @@ public class Menu {
                     MenuIA();
                     break;
                 case "3":
+                    Player.sortByScore();
                     break;
                 case "a":
                     scan.close();
@@ -170,7 +171,6 @@ public class Menu {
     {
 
     }
-
 
 
 
