@@ -223,7 +223,8 @@ public class Ia {
     }
 
     /**
-     * La fonction preventPlayerPotentialDiagonalWin vérifie s'il y a une victoire
+     * La fonction preventPlayerPotentialLeftDiagonalWin vérifie s'il y a une
+     * victoire
      * potentielle d'un joueur sur le plateau de jeu (alignement diagonal) et
      * renvoie la colonne à jouer pour empêcher cette victoire.
      *
@@ -278,6 +279,20 @@ public class Ia {
             return -1;
         }
     }
+
+    /**
+     * La fonction preventPlayerPotentialRightDiagonalWin vérifie s'il y a une
+     * victoire
+     * potentielle d'un joueur sur le plateau de jeu (alignement diagonal) et
+     * renvoie la colonne à jouer pour empêcher cette victoire.
+     *
+     * @param matrix     Plateau de jeu (grille de 6 lignes et 7 colonnes)
+     * @param lastX      Coordonnée en X de la dernière case jouée
+     * @param lastY      Coordonnée en Y de la dernière case jouée
+     * @param lastSymbol Symbole du joueur courant ('X' ou 'O')
+     * @return La colonne à jouer pour empêcher une victoire potentielle (colonne de
+     *         1 à 7) ou -1 si aucune victoire potentielle n'est détectée
+     */
 
     public static int preventPlayerPotentialRightDiagonalWin(String[][] matrix, int lastX, int lastY,
             String lastSymbol) {

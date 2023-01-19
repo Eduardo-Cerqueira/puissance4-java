@@ -119,6 +119,11 @@ public class Menu {
 
     }
 
+    /**
+     * La fonction displayIALevelSelectionMenu affiche un menu permettant de
+     * sélectionner le niveau de difficulté de l'IA
+     */
+
     private static void displayIALevelSelectionMenu() {
         ArrayList<String> menus = new ArrayList<>();
         menus.add("[---------Choose-a-difficulty--------]");
@@ -134,6 +139,10 @@ public class Menu {
         }
     }
 
+    /**
+     * La fonction MenuIA permet de lancer une partie contre une IA en sélectionnant
+     * le niveau de difficulté
+     */
     public static void MenuIA() {
         displayIALevelSelectionMenu();
         while (true) {
@@ -159,8 +168,13 @@ public class Menu {
         }
     }
 
+    /**
+     * La fonction lauchGameWithIA permet de lancer une partie contre un joueur IA
+     * 
+     * @param difficulty Niveau de difficulté de l'IA
+     */
     private static void lauchGameWithIA(String difficulty) {
-
+        // Initialisation des objets joueur et IA
         Ia robot = new Ia(difficulty, Game.matrix);
         Player joueur1 = CreatePlayer();
         Player joueurIA = new Player();
@@ -168,14 +182,15 @@ public class Menu {
             joueurIA.setColor("yellow");
             joueurIA.setShape(robot.getSymbol());
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
+        // Initialisation d'une nouvelle partie avec les joueurs créés
         Game iaGame = new Game(joueur1, joueurIA);
         iaGame.InitialiseMatrix();
         iaGame.print2dArray();
+        // Boucle de jeu
         while (iaGame.CheckForFullBoard() == false) {
-
+            // Tour du joueur 1
             if (iaGame.getPlayerOneTurn()) {
                 System.out.println("Saisisser le numéro de la colonne pour votre jeton:");
                 do {
@@ -188,7 +203,7 @@ public class Menu {
                         System.out.println(e.getMessage());
                     }
                 } while (true);
-
+                // Tour de l'IA
             } else {
                 do {
                     try {
@@ -196,15 +211,12 @@ public class Menu {
                                 iaGame.getLastSymbolPlayed()));
                         break;
                     } catch (Exception e) {
-                        // e.printStackTrace();
                         System.out.println(e.getMessage());
                     }
                 } while (true);
-
             }
-
+            // Vérifie si un joueur a gagné
             if (iaGame.checkForVictory()) {
-
                 if (iaGame.getPlayerOneTurn()) {
                     System.out.println(joueur1.getPseudo() + " a gagné !");
                     break;
@@ -213,7 +225,6 @@ public class Menu {
                     break;
                 }
             }
-
             System.out.println("--------------- Changement de joueur ! ---------------");
             iaGame.ChangePlayer();
         }
