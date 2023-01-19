@@ -20,6 +20,10 @@ public class Player implements Comparator<Player> {
     public String getShape() {
         return _shape;
     }
+    /**
+     * Vérifie que la valeur passé est bien éguale a "X" ou "O", sinon renvoie une erreur.
+     * @throws ParseException
+     */
     public void setShape(String shape) throws ParseException {
 
         if (shape.equalsIgnoreCase("X") || shape.equalsIgnoreCase("O") ) {
@@ -32,6 +36,11 @@ public class Player implements Comparator<Player> {
     public String getColor() {
         return _color;
     }
+    /**
+     * Vérifie que la valeur passé correspond bien a "red" ou "yellow" comme indiqué dans le menu.
+     * et affecte le bon code couleur ANSI en fonction de la saisie.
+     * @throws ParseException
+     */
     public void setColor(String color) throws ParseException {
         this._color = color;
 
